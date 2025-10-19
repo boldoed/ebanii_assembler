@@ -1,0 +1,311 @@
+.adr:0x0000
+init:
+	mvi d, 0x14
+main:
+	call paintN
+	call paintO
+	call paintF
+	mvi	b, 2
+	call Delay
+	call clear
+	dcr d
+	mov a,d
+	cpi 0xf6
+	jnz NE
+	mvi d, 0x14
+	NE:
+	jmp main
+hlt
+
+.adr:0x1000
+paintN:
+	mov e, d
+	mvi a,0x08
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000100
+	out 0x07
+	mvi a, 196
+	out 0x07
+	
+	inr e
+	
+	mvi a,0x08
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000011
+	out 0x07
+	mvi a, 224
+	out 0x07
+	
+	inr e
+	
+	mvi a,0x08
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000001
+	out 0x07
+	mvi a, 237
+	out 0x07
+	
+	inr e
+
+	mvi a,0x08
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000010
+	out 0x07
+	mvi a, 232
+	out 0x07
+
+	inr e
+
+	mvi a,0x08
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000101
+	out 0x07
+	mvi a, 235
+	out 0x07
+
+ret
+
+.adr:0x1400
+paintO:
+mov e, d
+	mvi a,0x09
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000101
+	out 0x07
+	mvi a, 196
+	out 0x07
+
+	inr e
+
+	mvi a,0x09
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000010
+	out 0x07
+	mvi a, 229
+	out 0x07
+
+	inr e
+
+	mvi a,0x09
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000100
+	out 0x07
+	mvi a, 237
+	out 0x07
+
+	inr e
+
+	mvi a,0x09
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000011
+	out 0x07
+	mvi a, 232
+	out 0x07
+
+	inr e
+
+	mvi a,0x09
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000010
+	out 0x07
+	mvi a, 241
+	out 0x07
+
+	inr e
+
+	mvi a,0x09
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000100
+	out 0x07
+	mvi a, 238
+	out 0x07
+
+	inr e
+
+	mvi a,0x09
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000101
+	out 0x07
+	mvi a, 226
+	out 0x07
+
+	inr e
+
+	mvi a,0x09
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b0000010
+	out 0x07
+	mvi a, 232
+	out 0x07
+
+	inr e
+
+	mvi a,0x09
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000011
+	out 0x07
+	mvi a, 247
+	out 0x07
+ret
+
+.adr:0x1500
+paintF:
+mov e, d
+	mvi a,0x0a
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000010
+	out 0x07
+	mvi a, 207
+	out 0x07
+
+	inr e
+
+	mvi a,0x0a
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000001
+	out 0x07
+	mvi a, 238
+	out 0x07
+
+	inr e
+
+	mvi a,0x0a
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000100
+	out 0x07
+	mvi a, 239
+	out 0x07
+
+	inr e
+
+	mvi a,0x0a
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000001
+	out 0x07
+	mvi a, 238
+	out 0x07
+
+	inr e
+
+	mvi a,0x0a
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mvi a, 0b00000100
+	out 0x07
+	mvi a, 226
+	out 0x07
+
+ret
+
+.adr:0x1100
+clear:
+	mvi b, 0x00
+	BIZ:
+	mvi c, 0x00
+		CIZ:
+		mov a, b
+		out 0x07
+		mov a,c
+		out 0x07
+		mvi a, 0x00
+		out 0x07
+		mvi a, 0b00000000
+		out 0x07
+		mvi a, 0x30
+		out 0x07
+	inr c
+	mov a,c
+	sui 0x14
+	jnz CIZ
+inr b
+mov a,b
+sui 0x14
+jnz BIZ
+ret
+
+.adr:0x1200
+Delay:
+					mvi a, 100
+					out 0x16
+					mvi a, 0
+DelayLoop:
+					in 0x16
+					cpi 0x00
+					jnz DelayLoop
+					ret
+hlt

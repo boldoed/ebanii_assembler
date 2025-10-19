@@ -1,0 +1,142 @@
+.adr:0x0000
+init:
+	mvi b, 0b0010010
+	call draw
+	mvi c, 1
+	call delay
+
+	mvi b, 0b00000000
+	call draw
+	mvi c, 1
+	call delay
+
+	mvi b, 0b0010010
+	call draw
+	mvi c, 5
+	call delay
+
+	mvi b, 0b00000000
+	call draw
+	mvi c, 5
+	call delay
+
+	mvi b, 0b0010010
+	call draw
+	mvi c, 10
+	call delay
+
+	mvi b, 0b00000000
+	call draw
+	mvi c, 25
+	call delay
+
+	mvi b, 0b0010010
+	call draw
+	mvi c, 20
+	call delay
+	
+	mvi b, 0b00000000
+	call draw
+hlt
+
+.adr:0x1000
+draw:
+	mvi d, 0x08
+	mvi e, 0x07
+	call paint
+
+	mvi d, 0x09
+	mvi e, 0x07
+	call paint
+
+	mvi d, 0x0a
+	mvi e, 0x07
+	call paint
+
+	mvi d, 0x0b
+	mvi e, 0x07
+	call paint
+
+	mvi d, 0x08
+	mvi e, 0x0a
+	call paint
+
+	mvi d, 0x09
+	mvi e, 0x0a
+	call paint
+
+	mvi d, 0x0a
+	mvi e, 0x0a
+	call paint
+
+	mvi d, 0x0b
+	mvi e, 0x0a
+	call paint
+
+	mvi d, 0x07
+	mvi e, 0x08
+	call paint
+
+	mvi d, 0x07
+	mvi e, 0x09
+	call paint
+
+	mvi d, 0x0c
+	mvi e, 0x08
+	call paint
+
+	mvi d, 0x0c
+	mvi e, 0x09
+	call paint
+
+	mvi d, 0x0c
+	mvi e, 0x0a
+	call paint
+
+	mvi d, 0x0c
+	mvi e, 0x07
+	call paint
+
+	mvi d, 0x0c
+	mvi e, 0x06
+	call paint
+
+	mvi d, 0x0c
+	mvi e, 0x0b
+	call paint
+
+	mvi d, 0x0d
+	mvi e, 0x0b
+	call paint
+
+	mvi d, 0x0d
+	mvi e, 0x06
+	call paint
+ret
+
+paint:
+	mov a, d
+	out 0x07
+	mov a, e
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+	mov a, b
+	out 0x07
+	mvi a, 0x00
+	out 0x07
+ret
+
+.adr:0x1200
+delay:
+	mvi a, 100
+	out 0x16
+	mvi a, 0
+delay_loop:
+	in 0x16
+	cpi 0x00
+	jnz delay_loop
+	dcr c
+	jnz delay
+ret
+hlt

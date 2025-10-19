@@ -1,0 +1,95 @@
+.adr:0x0000
+;Задание 1 поиск характерных чисел
+;Исходный массив
+;1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+MVI B, 0xff
+MVI C, 0x12
+MVI E, 0x02
+main_loop:
+	LXI H, 0x1100
+	PUSH B
+	CALL is_max
+	MOV D, A
+	CALL is_min
+	POP B
+	INR L
+	DCR L
+	CMP D
+	JNZ equal
+	INR B
+	MOV L, B
+	INR H
+	MOV M,D
+	DCR H
+	equal:
+		INR E
+		DCR C
+		JNZ main_loop
+LXI H, 0x1200
+out_loop:
+	MOV A, M
+	STC
+	CMC
+	CPI 0x00
+	JC end
+	OUT 0x02
+	INX H
+	DCR B
+	JNZ out_loop
+end:
+	HLT
+is_min:
+	MOV B, C
+	INR B
+	DCR L
+	min_main_loop:
+		MOV A, M
+		min_loop:
+			INR L
+			DCR B
+			JZ out_min
+			STC
+			CMC
+			CMC 
+			CMP M
+			JNC min_main_loop
+		JMP min_loop
+	out_min:
+		RET
+	is_max:
+		MOV B, E
+		max_main_loop:
+			MOV A, M
+			max_loop:
+				INR L
+				DCR B
+				JZ out_max
+				STC
+				CMC
+				CMP M
+				JNC max_loop
+			JMP max_main_loop
+		out_max:
+			RET
+
+.adr:0x1100
+.set:1
+.set:2
+.set:3
+.set:4
+.set:5
+.set:6
+.set:7
+.set:8
+.set:9
+.set:10
+.set:11
+.set:12
+.set:13
+.set:14
+.set:15
+.set:16
+.set:17
+.set:18
+.set:19
+.set:20

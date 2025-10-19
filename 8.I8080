@@ -1,0 +1,128 @@
+.adr:0x0000
+Init:
+				IN 0x08
+				MOV B, A
+				CALL MaxTemp
+				IN 0x08
+				MOV C, A
+				MVI E, 0xFF
+Main:
+				MOV A, C
+				OUT 0x02
+				STC
+				CMC
+				CMP B
+				JC small
+
+				CALL check_end
+				INR C
+				CALL Draw_Up
+				CALL Delay
+
+				CALL check_end
+				DCR C
+				CALL Draw_Down
+				CALL Delay
+
+				CALL check_end
+				DCR C
+				CALL Draw_Down
+				CALL Delay
+
+				JMP Main
+small:
+				CALL check_end
+				INR C
+				CALL Draw_Up
+				CALL Delay
+				
+				JMP Main
+End:
+				HLT
+
+.adr:0x0100
+Draw_Up:
+				MVI D, 72
+				CALL draw_pix_up
+				RET
+
+Draw_Down:
+				MVI D, 67
+				CALL draw_pix_down
+				RET
+
+draw_pix_up:
+				MVI A, 0x13
+				SUB C
+				OUT 0x07
+				MOV A, E
+				OUT 0x07
+				MVI A, 0x00
+				OUT 0x07
+				MVI A, 0b00000100
+				OUT 0x07
+				MOV A, D
+				OUT 0x07
+				RET
+
+draw_pix_down:
+				MVI A, 0x13
+				SUB C
+				OUT 0x07
+				MOV A, E
+				OUT 0x07
+				MVI A, 0x00
+				OUT 0x07
+				MVI A, 0b00000001
+				OUT 0x07
+				MOV A, D
+				OUT 0x07
+				RET
+
+Delay:
+				MVI a, 100
+				OUT 0x16
+				MVI a, 0
+DelayLoop:
+				IN 0x16
+				CPI 0x00
+				JNZ DelayLoop
+				RET
+
+check_end:
+				INR E
+				STC
+				CMC
+				MOV A, E
+				CPI 0x14
+				JNC End
+				RET
+
+.adr:0x0200
+MaxTemp:
+				MVI E, 0xFF
+				MOV C, A
+				MVI D, 151
+	Draw_RL:
+			   INR E
+		 	   CALL draw_border
+			   MOV A, E
+			 	 STC
+		     CMC
+		     CPI 0x14
+		     JC Draw_RL
+RET
+
+draw_border:
+				MVI A, 0x13
+				SUB C
+				OUT 0x07
+				MOV A, E
+				OUT 0x07
+				MVI A, 0x00
+				OUT 0x07
+				MVI A, 0b00000010
+				OUT 0x07
+				MOV A, D
+				OUT 0x07
+				RET
